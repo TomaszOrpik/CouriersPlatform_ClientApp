@@ -1,0 +1,22 @@
+# Flutter build
+variables:
+  projectDirectory: ClientApp
+
+jobs:
+  - job: Android
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - task: FlutterBuild@0
+      inputs:
+        target: 'apk'
+        projectDirectory: '$(Build.SourcesDirectory)'
+        flutterDirectory: 'C:\src\flutter\bin'
+    - task: FlutterTest@0
+      inputs:
+        projectDirectory: $(projectDirectory)
+    - task: CopyFiles@2
+      inputs:
+        contents: '**/*.apk'
+        targetFolder: '$(build.artifactStagingDirectory)'
+    - task: PublishBuildArtifacts@1

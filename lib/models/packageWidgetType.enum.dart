@@ -1,0 +1,4 @@
+enum PackageWidgetType {
+  sender,
+  receiver,
+}
